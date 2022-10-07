@@ -1,52 +1,32 @@
 {
-  "name": "redux-essentials-example",
-  "version": "1.0.0",
+  "name": "redux-essentials",
   "private": true,
-  "dependencies": {
-    "@mswjs/data": "^0.8.4",
-    "@reduxjs/toolkit": "^1.6.1",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "classnames": "^2.2.6",
-    "date-fns": "^2.12.0",
-    "faker": "^4.1.0",
-    "miragejs": "^0.1.35",
-    "mock-socket": "^9.0.3",
-    "msw": "^0.36.3",
-    "react": "^17",
-    "react-dom": "^17",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^4",
-    "seedrandom": "^3.0.5",
-    "txtgen": "^2.2.4"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.4",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
-    "prettier": "^2.0.2"
-  },
-  "msw": {
-    "workerDirectory": "public"
+    "@faker-js/faker": "^7.5.0",
+    "@mswjs/data": "^0.10.2",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.1.0",
+    "faker": "^4.1.0",
+    "mock-socket": "^9.1.5",
+    "msw": "^0.47.4",
+    "redux-devtools-extension": "^2.13.9",
+    "seedrandom": "^3.0.5",
+    "txtgen": "^3.0.4",
+    "vite": "^3.1.0"
   }
 }
