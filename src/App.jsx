@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { Navbar } from './app/Navbar';
-import { PostsList, AddPostForm, SinglePostPage, } from './features/posts';
+import { PostsList, AddPostForm, SinglePostPage, EditPostForm } from './features/posts';
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
             )}
           />
           <Route exact path="/posts/:postId" component={SinglePostPage} />
+          <Route exact path="/editPost/:postId" component={EditPostForm} />
           <Redirect to="/" />
         </Switch>
       </div>
