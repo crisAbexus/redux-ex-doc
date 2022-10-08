@@ -1,4 +1,5 @@
 import React from "react";
+import { PostAuthor } from "./PostAuthor";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -12,6 +13,7 @@ export const PostsList = () => {
         <Link to={`/posts/${post.id}`} className="button muted-button">
           View Post
         </Link>
+        <PostAuthor userId={post.user} />
       </article>
     )
   })

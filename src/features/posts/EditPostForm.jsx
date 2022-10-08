@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { postAdded } from "./postsSlice";
+import { postUpdated } from "./postsSlice";
 
 export const EditPostForm = ({ match }) => {
   const { postId } = match.params;
@@ -22,7 +22,7 @@ export const EditPostForm = ({ match }) => {
   const onSavePostClicked = () => {
     if (title && content) {
       dispath(
-        postAdded({
+        postUpdated({
           id: postId,
           title,
           content,
