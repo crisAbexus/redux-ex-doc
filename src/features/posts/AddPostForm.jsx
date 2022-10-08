@@ -15,11 +15,7 @@ export const AddPostForm = () => {
   const onSavePostClicked = () => {
     if (title && content) {
       dispath(
-        postAdded({
-          id: nanoid(),
-          title,
-          content,
-        })
+        postAdded(title, content)
       )
       setTitle('');
       setContent('');
