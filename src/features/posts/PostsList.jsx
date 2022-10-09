@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PostAuthor } from "./PostAuthor";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ReactionButtons } from "./ReactionButtons";
-import { selectAllPosts } from "./postsSlice";
+import { selectAllPosts, fetchPosts } from "./postsSlice";
 
 export const PostsList = () => {
   const posts = useSelector(selectAllPosts);
-  console.log(`🔽%cPostsList.jsx:10 - selectAllPosts`, 'font-weight:bold; background:#34cb00;color:#fff;'); //DELETEME
-  console.log(selectAllPosts); // DELETEME
-  console.log(`🎈%cPostsList.jsx:12 - posts`, 'font-weight:bold; background:#3cc300;color:#fff;'); //DELETEME
-  console.log(posts); // DELETEME
+  const dispatch = useDispatch();
   const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+  const postStatus = useSelector((state) => {
+    return state.posts.status
+  })
+
+  useEffect(() => {
+    if (postStatus === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [postStatus, dispatch])
+
   const renderedPosts = orderedPosts.map(post => {
     return (
       <article className="post-excerpt" key={post.id} >
