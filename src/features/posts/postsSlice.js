@@ -9,6 +9,23 @@ const initialState = {
   error: null,
 }
 
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  async initialPost => {
+    const response = await client.post('/fakeApi/posts', initialPost)
+    return response.data;
+  }
+)
+
+const getPosts = async () => {
+  const response = await client.get('/fakeApi/posts');
+  return response.data;
+}
+export const fetchPosts = createAsyncThunk(
+  'posts/fetchPosts',
+  getPosts,
+)
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -65,6 +82,11 @@ const postsSlice = createSlice({
         status = 'failed';
         error = action.error.message
       })
+      .addCase(addNewPost.fulfilled, ({ status, posts }, action) => {
+        status = 'succeeded'
+        // Add any fetched posts to the array
+        posts.push(action.payload)
+      })
   }
 })
 
@@ -79,12 +101,4 @@ export const selectPostById = (state, postId) => {
   return state.posts.posts.find(({ id }) => id === postId)
 }
 
-const getPosts = async () => {
-  const response = await client.get('/fakeApi/posts');
-  return response.data;
-}
 
-export const fetchPosts = createAsyncThunk(
-  'posts/fetchPosts',
-  getPosts,
-)
