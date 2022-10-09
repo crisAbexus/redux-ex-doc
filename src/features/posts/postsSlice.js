@@ -73,19 +73,19 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.pending, ({ status }, action) => {
         status = ' loading';
       })
-      .addCase(fetchPosts.fulfilled, ({ status, posts }, action) => {
-        status = 'succeeded'
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded'
         // Add any fetched posts to the array
-        posts = posts.concat(action.payload);
+        state.posts = state.posts.concat(action.payload);
       })
       .addCase(fetchPosts.rejected, ({ status, error }, action) => {
         status = 'failed';
         error = action.error.message
       })
-      .addCase(addNewPost.fulfilled, ({ status, posts }, action) => {
-        status = 'succeeded'
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        state.status = 'succeeded'
         // Add any fetched posts to the array
-        posts.push(action.payload)
+        state.posts.push(action.payload)
       })
   }
 })

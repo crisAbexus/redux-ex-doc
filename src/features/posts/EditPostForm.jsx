@@ -13,7 +13,7 @@ export const EditPostForm = ({ match }) => {
 
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const onTitleChanged = e => setTitle(e.target.value);
@@ -21,7 +21,7 @@ export const EditPostForm = ({ match }) => {
 
   const onSavePostClicked = () => {
     if (title && content) {
-      dispath(
+      dispatch(
         postUpdated({
           id: postId,
           title,

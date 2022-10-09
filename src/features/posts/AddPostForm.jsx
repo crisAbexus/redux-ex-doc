@@ -34,7 +34,7 @@ export const AddPostForm = () => {
       } finally {
         setAddRequestStatus('idle');
       }
-      dispath(
+      dispatch(
         postAdded(title, content, userId)
       )
       setTitle('');
@@ -44,7 +44,7 @@ export const AddPostForm = () => {
 
   const usersOptions = users.map(user => {
     return (
-      <option key={user.id} vale={user.id}>
+      <option key={user.id} value={user.id}>
         {user.name}
       </option>
     )
