@@ -9,6 +9,7 @@ import {
 import { Navbar } from './app/Navbar';
 import { PostsList, AddPostForm, SinglePostPage, EditPostForm } from './features/posts';
 import { UserPage, UsersList } from './features/users';
+import { NotidicationsList } from "./features/notifications/NotificationsList";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/editPost/:postId" component={EditPostForm} />
           <Route exact path="/users" component={UsersList} />
           <Route exact path="/users/:userId" component={UserPage} />
+          <Route exact path="/notifications" component={NotidicationsList} />
           <Redirect to="/" />
         </Switch>
       </div>

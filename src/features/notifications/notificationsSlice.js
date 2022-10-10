@@ -5,13 +5,17 @@ import { client } from "../../api/client";
 export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async (_, { getState }) => {
-    const allNotifications = selectAllNotifications;
+    const allNotifications = selectAllNotifications(getState());
     const [latestNotification] = allNotifications;
     const latestTimestamp = latestNotification ? latestNotification.date : '';
-    const response = await client.get(
-      `/fakeApi/notifications¡since=${latestTimestamp}`
-    )
-    return response.data;
+    try {
+      const response = await client.get(
+        `/fakeApi/notifications?since=${latestTimestamp}`
+      )
+      return response.data;
+
+    } catch (error) {
+    }
   }
 )
 
@@ -29,5 +33,7 @@ const notificationsSlice = createSlice({
 
 export default notificationsSlice.reducer;
 
-export const selectAllNotifications = state => state.notifications;
+export const selectAllNotifications = (state) => {
+  return state.notifications;
+};
 

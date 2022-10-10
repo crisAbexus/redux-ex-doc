@@ -4,10 +4,12 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 
 import { selectAllUsers } from "../users/usersSlice";
 
-import { selectAllNotifications } from "./notificationsSlice";
+import { selectAllNotifications, fetchNotifications } from "./notificationsSlice";
 
 export const NotidicationsList = () => {
   const notifications = useSelector(selectAllNotifications);
+  console.log(`🌿%cNotificationsList.jsx:11 - notifications`, 'font-weight:bold; background:#38c700;color:#fff;'); //DELETEME
+  console.log(notifications); // DELETEME
   const users = useSelector(selectAllUsers);
 
   const renderedNotifications = notifications.map(notification => {
