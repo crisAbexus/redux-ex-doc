@@ -8,6 +8,7 @@ import {
 
 import { Navbar } from './app/Navbar';
 import { PostsList, AddPostForm, SinglePostPage, EditPostForm } from './features/posts';
+import { UserPage, UsersList } from './features/users';
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
           />
           <Route exact path="/posts/:postId" component={SinglePostPage} />
           <Route exact path="/editPost/:postId" component={EditPostForm} />
+          <Route exact path="/users" component={UsersList} />
+          <Route exact path="/users/:userId" component={UserPage} />
           <Redirect to="/" />
         </Switch>
       </div>
