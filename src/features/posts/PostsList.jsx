@@ -4,10 +4,14 @@ import { TimeAgo } from "./TimeAgo";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ReactionButtons } from "./ReactionButtons";
-import { selectAllPosts, fetchPosts } from "./postsSlice";
+import { selectAllPosts, fetchPosts, selectPostIds, selectPostById, } from "./postsSlice";
 import { Spinner } from '../../components/Spinner'
 
-let PostExcerpt = ({ post }) => {
+let PostExcerpt = ({ postId }) => {
+  const post = useSelector((state) => {
+    const selectedPost = selectPostById(state, postId);
+    return selectedPost;
+  })
   return (
     <article className="post-excerpt" key={post.id} >
       <h3>{post.title}</h3>
@@ -25,6 +29,7 @@ export const PostsList = () => {
   const posts = useSelector(selectAllPosts);
   const dispatch = useDispatch();
   const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+  const orderedPostIds = useSelector(selectPostIds);
   const postStatus = useSelector((state) => {
     return state.posts.status
   })
@@ -47,9 +52,9 @@ export const PostsList = () => {
     const orderedPosts = posts
       .slice()
       .sort((a, b) => b.date.localeCompare(a.date));
-    content = orderedPosts.map((post) => {
+    content = orderedPostIds.map((postId) => {
       return (
-        <PostExcerpt key={post.id} post={post} />
+        <PostExcerpt key={postId} postId={postId} />
       )
     })
   } else if (postStatus === 'failed') {
