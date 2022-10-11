@@ -4,6 +4,7 @@ import { nanoid } from "@reduxjs/toolkit";
 
 import { postAdded } from "./postsSlice";
 import { addNewPost } from "./postsSlice";
+import { selectAllUsers } from "../users/usersSlice";
 
 export const AddPostForm = () => {
   const [title, setTitle] = useState('')
@@ -11,9 +12,7 @@ export const AddPostForm = () => {
   const [userId, setUserId] = useState('')
   const [addRequestStatus, setAddRequestStatus] = useState('idle');
   const dispatch = useDispatch();
-  const users = useSelector(state => {
-    return state.users
-  });
+  const users = useSelector(selectAllUsers);
 
   const onTitleChanged = e => setTitle(e.target.value);
   const onContentChanged = e => setContent(e.target.value);
