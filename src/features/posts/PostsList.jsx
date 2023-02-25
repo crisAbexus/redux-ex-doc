@@ -6,12 +6,9 @@ import { Link } from "react-router-dom";
 import { ReactionButtons } from "./ReactionButtons";
 import { selectAllPosts, fetchPosts, selectPostIds, selectPostById, } from "./postsSlice";
 import { Spinner } from '../../components/Spinner'
+import { useGetPostsQuery } from '../api/apiSlice'
 
-let PostExcerpt = ({ postId }) => {
-  const post = useSelector((state) => {
-    const selectedPost = selectPostById(state, postId);
-    return selectedPost;
-  })
+let PostExcerpt = ({ post }) => {
   return (
     <article className="post-excerpt" key={post.id} >
       <h3>{post.title}</h3>
@@ -26,39 +23,26 @@ let PostExcerpt = ({ postId }) => {
 PostExcerpt = React.memo(PostExcerpt);
 
 export const PostsList = () => {
-  const posts = useSelector(selectAllPosts);
-  const dispatch = useDispatch();
-  const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
-  const orderedPostIds = useSelector(selectPostIds);
-  const postStatus = useSelector((state) => {
-    return state.posts.status
-  })
-  const error = useSelector((state) => {
-    return state.posts.error;
-  })
-
-  useEffect(() => {
-    if (postStatus === 'idle') {
-      dispatch(fetchPosts());
-    }
-  }, [postStatus, dispatch])
+  const {
+    data: posts,
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  } = useGetPostsQuery();
 
   let content;
 
-  if (postStatus === 'loading') {
+  if (isLoading) {
     content = <Spinner text='Loading...' />
-  } else if (postStatus === 'succeeded') {
-    // sort posts in reverse chronological order by datetme string
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date));
-    content = orderedPostIds.map((postId) => {
+  } else if (isSuccess) {
+    content = posts.map((post) => {
       return (
-        <PostExcerpt key={postId} postId={postId} />
+        <PostExcerpt key={post.id} post={post} />
       )
     })
-  } else if (postStatus === 'failed') {
-    content = <div>{error}</div>
+  } else if (isError) {
+    content = (<div>{error?.toString()}</div>)
   }
 
   return (
