@@ -28,7 +28,7 @@ export const NotidicationsList = () => {
     return (
       <div key={notification.id} className={notificationClassname}>
         <div>
-          <b>{user.name}</b>{notification.message}
+          <b>{user.name}</b> {` ${notification.message}`}
         </div>
         <div title={notification.data}>
           <i>{timeAgo}</i>
