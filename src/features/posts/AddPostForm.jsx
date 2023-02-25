@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
-
+import { useAddNewPostMutation } from "../api/apiSlice";
 import { postAdded } from "./postsSlice";
-import { addNewPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 
 export const AddPostForm = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [userId, setUserId] = useState('')
+  const [addNewPost, { isLoading }] = useAddNewPostMutation();
   const [addRequestStatus, setAddRequestStatus] = useState('idle');
   const dispatch = useDispatch();
   const users = useSelector(selectAllUsers);
@@ -18,13 +17,12 @@ export const AddPostForm = () => {
   const onContentChanged = e => setContent(e.target.value);
   const onAuthorChanged = e => setUserId(e.target.value);
 
-  const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
+  const canSave = [title, content, userId].every(Boolean) && !isLoading;
 
   const onSavePostClicked = async () => {
     if (canSave) {
       try {
-        setAddRequestStatus('pending');
-        await dispatch(addNewPost({ title, content, user: userId })).unwrap();
+        await addNewPost({ title, content, user: userId }).unwrap();
         setTitle('');
         setContent('');
         setUserId('');
