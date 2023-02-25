@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
+import classnames from "classnames";
 import { ReactionButtons } from "./ReactionButtons";
 import { Spinner } from '../../components/Spinner'
 import { useGetPostsQuery } from '../api/apiSlice'
@@ -24,7 +25,9 @@ export const PostsList = () => {
     isLoading,
     isSuccess,
     isError,
-    error
+    error,
+    refetch,
+    isFetching,
   } = useGetPostsQuery();
   const sortedPosts = useMemo(() => {
     const sortedPosts = posts.slice()
@@ -39,11 +42,15 @@ export const PostsList = () => {
   if (isLoading) {
     content = <Spinner text='Loading...' />
   } else if (isSuccess) {
-    content = sortedPosts.map((post) => {
+    const renderedPosts = sortedPosts.map((post) => {
       return (
         <PostExcerpt key={post.id} post={post} />
       )
     })
+    const containerClassname = classnames(`posts-container`, {
+      disabled: isFetching,
+    })
+    content = <div className={containerClassname}>{renderedPosts}</div>
   } else if (isError) {
     content = (<div>{error?.toString()}</div>)
   }
@@ -51,6 +58,7 @@ export const PostsList = () => {
   return (
     <section className="posts-list">
       <h2>Post</h2>
+      <button onClick={refetch} >Refetch Posts</button>
       {content}
     </section>
   )
