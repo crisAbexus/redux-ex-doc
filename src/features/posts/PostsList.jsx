@@ -1,10 +1,6 @@
-import React, { useEffect, useMemo } from "react";
-import { PostAuthor } from "./PostAuthor";
-import { TimeAgo } from "./TimeAgo";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ReactionButtons } from "./ReactionButtons";
-import { selectAllPosts, fetchPosts, selectPostIds, selectPostById, } from "./postsSlice";
 import { Spinner } from '../../components/Spinner'
 import { useGetPostsQuery } from '../api/apiSlice'
 
