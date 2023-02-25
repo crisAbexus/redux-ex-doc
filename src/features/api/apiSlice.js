@@ -5,12 +5,25 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/fakeApi' }),
   endpoints: builder => ({
     getPosts: builder.query({
-      query: () => '/posts',
+      query: () => {
+        return '/posts'
+      },
     }),
     getPost: builder.query({
-      query: (postId) => '/posts',
+      query: (postId) => {
+        return `/posts/${postId}`
+      },
+    }),
+    addNewPost: builder.mutation({
+      query: (initialPost) => {
+        return {
+          url: '/posts',
+          method: 'POST',
+          body: initialPost,
+        }
+      }
     })
-  })
+  }),
 })
 
-export const { useGetPostsQuery, useGetPostQuery } = apiSlice;
+export const { useGetPostsQuery, useGetPostQuery, useAddNewPostMutation } = apiSlice;
