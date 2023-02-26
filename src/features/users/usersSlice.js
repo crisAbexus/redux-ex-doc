@@ -9,7 +9,9 @@ export const selectUsersResult = apiSlice.endpoints.getUsers.select()
 const emptyUsers = []
 export const selectAllUsers = createSelector(
   selectUsersResult,
-  userResult => usersResult?.data ?? emptyUsers
+  (usersResult) => {
+    return usersResult?.data ?? emptyUsers
+  }
 );
 
 export const selectUserById = createSelector(
@@ -17,7 +19,7 @@ export const selectUserById = createSelector(
   (state, userId) => {
     return userId;
   },
-  (state, userId) => {
+  (users, userId) => {
     return users.find(user => user.id === userId);
   },
 )
@@ -27,16 +29,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   return response.data;
 })
 
-const usersSlice = createSlice({
-  name: 'users',
-  emptyUsers,
-  reducers: {},
-  extraReducers(builder) {
-    builder.addCase(fetchUsers.fulfilled, usersAdapter.setAll)
-  }
-})
-
-export default usersSlice.reducer;
+export default selectAllUsers.reducer;
 
 /* export const { selectAll: selectAllUsers, selectById: selectUserById } = usersAdapter.getSelectors((state) => { */
 /*   return state.users */
