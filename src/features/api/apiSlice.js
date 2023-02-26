@@ -35,7 +35,7 @@ export const apiSlice = createApi({
     }),
     getUsers: builder.query({
       query: () => {
-        return '/suers'
+        return '/users'
       }
     })
   }),
