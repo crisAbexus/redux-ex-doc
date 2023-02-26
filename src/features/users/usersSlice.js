@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createEntityAdapter, createSelector, } from "@reduxjs/toolkit";
+import { createAsyncThunk, createEntityAdapter, createSelector, } from "@reduxjs/toolkit";
 import { apiSlice } from '../api/apiSlice';
 import { client } from "../../api/client";
 
