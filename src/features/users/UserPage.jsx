@@ -30,4 +30,4 @@ export const UserPage = ({ match }) => {
       <ul>{postTitles}</ul>
     </section>
   )
-}
+};

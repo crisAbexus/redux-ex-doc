@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAddNewPostMutation } from "../api/apiSlice";
-import { postAdded } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 
 export const AddPostForm = () => {
@@ -31,9 +30,6 @@ export const AddPostForm = () => {
       } finally {
         setAddRequestStatus('idle');
       }
-      dispatch(
-        postAdded(title, content, userId)
-      )
       setTitle('');
       setContent('');
     }

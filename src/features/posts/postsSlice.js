@@ -33,29 +33,6 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: {
-      reducer: (state, action) => {
-        state.posts.push(action.payload)
-      },
-      prepare: (title, content, userId) => {
-        return ({
-          payload: {
-            id: nanoid(),
-            date: new Date().toISOString(),
-            title,
-            content,
-            user: userId,
-            reactions: {
-              thumbsUp: 0,
-              hooray: 0,
-              heart: 0,
-              rocket: 0,
-              eyes: 0,
-            },
-          },
-        });
-      },
-    },
     reactionAdded: (state, { payload }) => {
       const { postId, reaction } = payload
       const existingPost = state.entities[postId];
@@ -79,7 +56,6 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = 'succeeded'
         // Add any fetched posts to the array
-        /* state.posts = state.posts.concat(action.payload); */
         postsAdapter.upsertMany(state, action.payload);
       })
       .addCase(fetchPosts.rejected, ({ status, error }, action) => {
@@ -101,16 +77,16 @@ export const {
 export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions;
 export default postsSlice.reducer;
 
-/* export const selectAllPosts = (state) => { */
-/*   return state.posts.posts; */
-/* } */
-/**/
-/* export const selectPostById = (state, postId) => { */
-/*   return state.posts.posts.find(({ id }) => id === postId) */
-/* } */
-/**/
 export const selectPostByUser = createSelector(
-  [selectAllPosts, (state, userId) => userId],
-  (posts, userId) => posts.filter(post => post.user === userId)
+  [
+    selectAllPosts, (state, userId) => {
+      return userId;
+    },
+  ],
+  (posts, userId) => {
+    return posts.filter((post) => {
+      return post.user === userId;
+    });
+  },
 )
 
