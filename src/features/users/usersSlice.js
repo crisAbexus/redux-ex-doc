@@ -28,6 +28,7 @@ const selectUsersData = createSelector(
 )
 
 export const { selectAll: selectAllUsers, selectById: selectUserById } = usersAdapter.getSelectors((state) => {
-  const data_fetched = selectUsersData(state)
-  return { ids: [], entities: {} } ?? initialState
+  const response = selectUsersData(state)
+  const data = response?.data ?? []
+  return { ids: data, entities: {} } ?? initialState
 })
