@@ -52,6 +52,23 @@ export const apiSlice = createApi({
         ]
       }
     }),
+    async onQueryStarted({ postId, reaction }, { dispatch, queryFUlfilled }) {
+      const patchResult = dispatch(
+        apiSlice.util.updateQueryData('getPosts', undefined, (draft) => {
+          const post = draft.find(post => {
+            return post.id === postId
+          })
+          if (post) {
+            post.reactions[reaction]++;
+          }
+        })
+      )
+      try {
+        await queryFUlfilled;
+      } catch {
+        patchResult.undo();
+      }
+    }
   }),
 })
 
