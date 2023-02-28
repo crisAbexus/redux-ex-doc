@@ -37,8 +37,22 @@ export const apiSlice = createApi({
       query: () => {
         return '/users'
       }
-    })
+    }),
+    addReaction: builder.mutation({
+      query: ({ postId, reaction }) => {
+        return ({
+          url: `posts/${postId}/reactions`,
+          method: 'POST',
+          body: { reaction }
+        })
+      },
+      invalidatesTags: (result, error, arg) => {
+        return [
+          { type: 'Post', id: arg.postId }
+        ]
+      }
+    }),
   }),
 })
 
-export const { useGetPostsQuery, useGetPostQuery, useAddNewPostMutation, useEditPostMutation, useGetUsersQuery } = apiSlice;
+export const { useGetPostsQuery, useGetPostQuery, useAddNewPostMutation, useEditPostMutation, useGetUsersQuery, useAddReactionMutation } = apiSlice;
