@@ -46,11 +46,11 @@ export const apiSlice = createApi({
           body: { reaction }
         })
       },
-      invalidatesTags: (result, error, arg) => {
-        return [
-          { type: 'Post', id: arg.postId }
-        ]
-      }
+      /* invalidatesTags: (result, error, arg) => { */
+      /*   return [ */
+      /*     { type: 'Post', id: arg.postId } */
+      /*   ] */
+      /* } */
     }),
     async onQueryStarted({ postId, reaction }, { dispatch, queryFUlfilled }) {
       const patchResult = dispatch(
